@@ -1,8 +1,13 @@
+import { Button} from "@/components/ui/button";
+import { Input} from "@/components/ui/input";
+
 const ProductsPage = () => {
     return ( 
-        <h1>Products</h1>
-        <Button></Button>
-     );
+       <div>
+        <Button>FSW</Button>
+        <Input/>
+       </div>
+    );
 }
  
 export default ProductsPage;
