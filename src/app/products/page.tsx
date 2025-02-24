@@ -5,7 +5,7 @@ const ProductsPage = () => {
     return ( 
        <div>
         <Button>FSW</Button>
-        <Input/>
+        <Input placeholder="O que vai ser hoje"/>
        </div>
     );
 }
