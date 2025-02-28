@@ -48,7 +48,6 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
             <ClockIcon size={12} />
             <p>Aberto!</p>
           </div>
-
         <ScrollArea className="w-full">
           <div className="flex w-max space-x-4 p-4 pt-1">
             {restaurant.menuCategories.map((category) => (
@@ -74,3 +73,4 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
 };
 
 export default RestaurantCategories;
+
