@@ -15,7 +15,7 @@ interface ProductHeaderProps {
     const router = useRouter();
     const handleBackCLick = () => router.back();
   return (
-    <div className="relative h-[360px] w-full">
+    <div className="relative min-h-[360px] w-full">
       <Button
         variant="secondary"
         size="icon"
