@@ -3,12 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
+import { formatCurrency } from "@/helpers/format-currency";
+
 interface ProductsProps {
   products: Product[];
 }
 
 const Products = ({ products }: ProductsProps) => {
-const {slug} = useParams<{slug: string}>();
+  const { slug } = useParams<{ slug: string }>();
   return (
     <div className="space-y-4 px-1.5">
       {products.map((product) => (
@@ -23,14 +25,16 @@ const {slug} = useParams<{slug: string}>();
               {product.description}
             </p>
             <p className="font-seminbold pt-3 text-sm">
-              {new Intl.NumberFormat("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-              }).format(product.price)}
+              {formatCurrency(product.price)}
             </p>
           </div>
           <div className="relative min-h-[82px] min-w-[120px]">
-            <Image src={product.imageUrl}  alt={product.name} fill className="rounded-lg object-contain"/>
+            <Image
+              src={product.imageUrl}
+              alt={product.name}
+              fill
+              className="rounded-lg object-contain"
+            />
           </div>
         </Link>
       ))}
