@@ -63,7 +63,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             <div className="flex items-center gap-3 text-center">
               <Button
                 variant="outline"
-                className="h-8 w-8 rounded-xl"
+                className="h-8 w-8 rounded-lg"
                 onClick={handleDecreaseQuantity}
               >
                 <ChevronLeftIcon />
@@ -71,7 +71,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               <p className="w-4">{quantity}</p>
               <Button
                 variant="destructive"
-                className="h-8 w-8 rounded-xl"
+                className="h-8 w-8 rounded-lg"
                 onClick={handleIncreaseQuantity}
               >
                 <ChevronRightIcon />
