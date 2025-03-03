@@ -10,11 +10,17 @@ interface OrdersPageProps {
 
 const OrdersPage = async ({ searchParams }: OrdersPageProps) => {
   const { cpf } = await searchParams;
-  if (!cpf || !isValidCpf(cpf)) {
+  if (!cpf) {
+    return <CpfForm />;
+  }
+  if(!isValidCpf(cpf)){
     return <CpfForm />;
   }
 
   const orders = await db.order.findMany({
+    orderBy:{
+      createdAt: "desc"
+    },
     where: {
       customerCpf: removeCpfPunctuation(cpf),
     },

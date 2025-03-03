@@ -1,3 +1,5 @@
+"use client";
+
 import { OrderStatus, Prisma } from "@prisma/client";
 import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
 import Image from "next/image";
@@ -38,6 +40,7 @@ const getStatusLabel = (status: OrderStatus) => {
 const OrderList = ({ orders }: OrderListProps) => {
   const router = useRouter();
   const handleBackClick = () => router.back();
+
   return (
     <div className="space-y-6 p-6">
       <Button
@@ -61,11 +64,12 @@ const OrderList = ({ orders }: OrderListProps) => {
               {getStatusLabel(order.status)}
             </div>
             <div className="flex items-center gap-2">
-              <div className="realtive h-5 w-5">
+              <div className="relative h-5 w-5">
                 <Image
                   src={order.restaurant.avatarImageUrl}
                   alt={order.restaurant.name}
                   fill
+                  className="rounded-sm"
                 />
               </div>
               <p className="text-sm font-semibold">{order.restaurant.name}</p>
