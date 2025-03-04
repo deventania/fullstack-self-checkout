@@ -53,7 +53,7 @@ export const createOrder = async (input: CreateOrderInput) => {
         },
       },
       total: productWithPricesAndQuantity.reduce(
-        (acc, product) => acc * product.price * product.quantity,
+        (acc, product) => acc + product.price * product.quantity,
         0,
       ),
       consumptionMethod: input.consumptionMethod,
