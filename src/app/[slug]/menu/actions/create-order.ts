@@ -2,7 +2,6 @@
 
 import { ConsumptionMethod } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import { notFound, redirect } from "next/navigation";
 
 import { db } from "@/lib/prisma";
 
@@ -26,7 +25,7 @@ export const createOrder = async (input: CreateOrderInput) => {
     },
   });
   if (!restaurant) {
-    return notFound();
+    throw new Error("Restaurant not found");
   }
   const productsWithPrices = await db.product.findMany({
     where: {
@@ -35,24 +34,22 @@ export const createOrder = async (input: CreateOrderInput) => {
       },
     },
   });
-
-  const productWithPricesAndQuantity = input.products.map((product) => ({
+  const productsWithPricesAndQuantities = input.products.map((product) => ({
     productId: product.id,
     quantity: product.quantity,
     price: productsWithPrices.find((p) => p.id === product.id)!.price,
   }));
-
-  await db.order.create({
+  const order = await db.order.create({
     data: {
       status: "PENDING",
       customerName: input.customerName,
       customerCpf: removeCpfPunctuation(input.customerCpf),
       orderProducts: {
         createMany: {
-          data: productWithPricesAndQuantity,
+          data: productsWithPricesAndQuantities,
         },
       },
-      total: productWithPricesAndQuantity.reduce(
+      total: productsWithPricesAndQuantities.reduce(
         (acc, product) => acc + product.price * product.quantity,
         0,
       ),
@@ -61,7 +58,6 @@ export const createOrder = async (input: CreateOrderInput) => {
     },
   });
   revalidatePath(`/${input.slug}/orders`);
-  redirect(
-    `/${input.slug}/orders?cpf=${removeCpfPunctuation(input.customerCpf)}`,
-  );
+ 
+  return order;
 };
